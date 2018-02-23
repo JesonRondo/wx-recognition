@@ -60,6 +60,10 @@ router.post('/', upload.single('file'), async function (ctx, next) {
         };
     }
 
+    // clean file
+    var tmpFile = path.resolve('./voice-file/' + ctx.req.file.filename);
+    exec('rm -f ' + tmpFile + ' ' + tmpFile + '.wav');
+
     ctx.response.body = result;
 });
 
