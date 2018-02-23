@@ -48,7 +48,7 @@ speech.fileStat = function(file) {
 speech.getAccessToken = function(){
     return new Promise(function (resolve, reject) {
         request({
-            url: 'https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=（你自己的API key）&client_secret=（你自己的Secret Key）',
+            url: 'https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=NSnK4kP18GKEncwR5k0N1oL7&client_secret=VOuAaMR3D8MpYbGHGEnHC7hf3IfHiS4Z',
             method: 'get',
             headers: {
                 'content-type': 'application/json'
@@ -69,7 +69,7 @@ speech.getAccessToken = function(){
     });
 }
 
-speech.recognize = function(base64String, size){
+speech.recognize = function(base64String, size, token){
     return new Promise(function (resolve, reject) {
         request({
             url: 'http://vop.baidu.com/server_api',
@@ -81,7 +81,7 @@ speech.recognize = function(base64String, size){
                 "format":"wav",
                 "rate":16000,
                 "channel":1,
-                "token":'(你的token)',
+                "token":token,
                 "cuid":"9e:eb:e8:d4:67:00",
                 "len":size,
                 "speech":base64String

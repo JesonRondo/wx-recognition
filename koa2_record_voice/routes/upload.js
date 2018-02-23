@@ -36,7 +36,8 @@ router.post('/', upload.single('file'), async function (ctx, next) {
         var filePath = path.resolve('./voice-file/' + ctx.req.file.filename + '.wav');
         var base64Data = await speech.base64_encode(filePath);
         var fileInfo = await speech.fileStat(filePath);
-        var recogniz = await speech.recognize(base64Data.msg, fileInfo.msg.size);
+        var tokenInfo = await speech.getAccessToken();
+        var recogniz = await speech.recognize(base64Data.msg, fileInfo.msg.size, tokenInfo.msg);
         result = {
             code: 200,
             msg : recogniz.msg

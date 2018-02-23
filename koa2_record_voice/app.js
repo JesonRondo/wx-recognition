@@ -34,7 +34,7 @@ app.use(async (ctx, next) => {
 //router.use('/users', users.routes(), users.allowedMethods());
 
 const upload = require('./routes/upload');
-router.use('/upload', upload.routes(), upload.allowedMethods());
+router.use('/voice-upload', upload.routes(), upload.allowedMethods());
 
 const callback = require('./routes/callback');
 router.use('/callback', callback.routes(), callback.allowedMethods());
