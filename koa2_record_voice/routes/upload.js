@@ -37,13 +37,21 @@ router.post('/', upload.single('file'), async function (ctx, next) {
         var base64Data = await speech.base64_encode(filePath);
         var fileInfo = await speech.fileStat(filePath);
         var tokenInfo = await speech.getAccessToken();
-        var recogniz = await speech.recognize(base64Data.msg, fileInfo.msg.size, tokenInfo.msg);
-        result = {
-            code: 200,
-            msg : recogniz.msg
-        };
-        console.log(recogniz);
-
+        try {
+            var tokenObj = JSON.parse(tokenInfo.msg);
+            var token = tokenObj.access_token;
+            var recogniz = await speech.recognize(base64Data.msg, fileInfo.msg.size, token);
+            result = {
+                code: 200,
+                msg : recogniz.msg
+            };
+            console.log(recogniz);
+        } catch (e) {
+            result = {
+                code: 89,
+                msg : 'token获取失败'
+            };
+        }
     }else {
         console.log('文件转换wav失败: ' + JSON.stringify(res.msg));
         result = {
